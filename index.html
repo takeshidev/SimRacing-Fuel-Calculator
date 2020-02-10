@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JSfuel - TK</title>
+  <link rel="stylesheet" href="mainjsfuel.css" />
+  <!-- <link rel="icon" href="favicon.ico"/> -->
+
+</head>
+
+<body>
+  <h1>SimRacing Fuel Calculator</h1>
+
+  <div class="contenedor">
+    <form id="calcform">
+      <div class="cuadromayor">
+        <table>
+          <TR>Tiempo restante</TR>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>
+              <div id="rsecUP" onclick="sumaremSEC()">+</div>
+            </th>
+          </tr>
+          <tr>
+            <th><input type="text" name="remHRS" id="remHRS" placeholder="hrs" onkeyup="calc()"></th>
+            <th>:</th>
+            <th><input type="text" name="remMIN" id="remMIN" placeholder="min" value="45" onkeyup="calc()"></th>
+            <th>:</th>
+            <th><input type="text" name="remSEC" id="remSEC" placeholder="sec" value="00" onkeyup="calc()"></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>
+              <div id="rsecDW" onclick="restaremSEC()">-</div>
+            </th>
+          </tr>
+
+        </table>
+      </div>
+      <div class="cuadromayor">
+        <p>Tiempo vuelta / Ritmo carrera</p>
+        <input type="text" name="lapHRS" id="lapHRS" placeholder="hrs" value="00" onkeyup="calc()">:
+        <input type="text" name="lapMIN" id="lapMIN" placeholder="min" value="01" onkeyup="calc()">:
+        <input type="text" name="lapSEC" id="lapSEC" placeholder="sec" value="00" onkeyup="calc()">
+      </div>
+      <div class="cuadromayor">
+        <table id="tablaConsumo">
+          <tr>
+            <th>Consumo vuelta</th>
+          </tr>
+          <tr>
+            <th>
+              <div id="consumUP" onclick="consumUP()">+</div>
+            </th>
+          </tr>
+          <tr>
+            <th><input type="text" name="consumo" id="consumo" placeholder="" value="1" onkeyup="calc()"></th>
+          </tr>
+          <tr>
+            <th>
+              <div id="consumDW" onclick="consumDW()">-</div>
+            </th>
+          </tr>
+        </table>
+
+
+
+
+      </div>
+      <div class="cuadromayor">
+        <p>Cargar <div id="carga">00</div> litros</p>
+      </div>
+    </form>
+  </div>
+  <button onclick="calc();">Calcular</button>
+
+
+
+  <h2>Historial</h2>
+  <script>
+    function calc() {
+      console.log("Start");
+      let remHR = Number(document.getElementById("calcform").elements.namedItem("remHRS").value);
+      let remMI = Number(document.getElementById("calcform").elements.namedItem("remMIN").value);
+      let remSE = Number(document.getElementById("calcform").elements.namedItem("remSEC").value);
+      let remTime = remSE + (remMI * 60) + (remHR * 60 * 60)
+
+      let lapHR = Number(document.getElementById("calcform").elements.namedItem("lapHRS").value);
+      let lapMI = Number(document.getElementById("calcform").elements.namedItem("lapMIN").value);
+      let lapSE = Number(document.getElementById("calcform").elements.namedItem("lapSEC").value);
+      let lapTime = lapSE + (lapMI * 60) + (lapHR * 60 * 60)
+
+      let consumo = document.getElementById("calcform").elements.namedItem("consumo").value;
+
+      let resultado = (remTime / lapTime * consumo);
+      document.getElementById("carga").innerHTML = (resultado);
+      console.log(remTime);
+      console.log(lapTime);
+      console.log(remTime / lapTime * consumo);
+      //document.getElementById("carga").innerHTML=cargar;
+      // document.write(remTime);
+      // document.write(lapTime);
+      // document.write(cargar);
+    }
+
+    function sumaremSEC() {
+      console.log("click");
+      let num = Number(document.getElementById("calcform").elements.namedItem("remSEC").value) + 1;
+      console.log(num);
+      document.getElementById("calcform").elements.namedItem("remSEC").value = num;
+      calc();
+    }
+    function restaremSEC(){
+      console.log("click");
+      let num = Number(document.getElementById("calcform").elements.namedItem("remSEC").value) - 1;
+      console.log(num);
+      document.getElementById("calcform").elements.namedItem("remSEC").value = num;
+      calc(); 
+    }
+    function consumUP() {
+      console.log("click");
+      let num = Number(document.getElementById("calcform").elements.namedItem("consumo").value) + 0.05;
+      console.log(num);
+      document.getElementById("calcform").elements.namedItem("consumo").value = num;
+      calc();
+    }
+    function consumDW() {
+      console.log("click");
+      let num = Number(document.getElementById("calcform").elements.namedItem("consumo").value) - 0.05;
+      console.log(num);
+      document.getElementById("calcform").elements.namedItem("consumo").value = num;
+      calc();
+    }
+
+  </script>
+</body>
+
+</html>
